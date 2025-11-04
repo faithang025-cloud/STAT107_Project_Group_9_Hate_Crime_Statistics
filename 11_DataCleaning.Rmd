@@ -20,12 +20,18 @@ source("00_requirements.R")
 hateCrime <- read_csv("hate_crime.csv")
 ```
 
-## Including Plots
+## Cleaning the Data
 
-You can also embed plots, for example:
+First, we will remove any rows with missing values. Then, we will convert categorical variables to factors.
+This is done using functions defined in "01_funct_DataCleaning.R".
+What this does is that it sources the functions from that file and applies them to the `hateCrime` dataset.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r, echo=FALSE}
+
+source("01_funct_DataCleaning.R")
+hateCrime_Clean <- remove_na(hateCrime)
+
+hateCrime_Final <- to_factors(hateCrime_Clean)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

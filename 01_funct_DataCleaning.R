@@ -17,7 +17,7 @@ to_factors <- function(df) { ## Turn all character variables to factors.
   n_vars <- ncol(df)
   for (var_ind in 1:n_vars) {
     var <- df[, var_ind]
-    if (class(var) == "character") {
+    if (is.character(var)) {
       df[, var_ind] <- factor(var)
     }
   }
