@@ -27,7 +27,10 @@ to_factors <- function(df) { ## Turn all character variables to factors.
 # Rename specific columns
 data_rename <- function(data) {
   my_data_renamed <- data %>%
-   rename(new_column_name1 = old_column_name1,
-         new_column_name2 = old_column_name2)
+    rename("Race of Offender" = offender_race,
+         Offense = offense_name,
+         Bias = bias_desc,
+         Year = data_year,
+         State = state_name)
 
 }

@@ -7,7 +7,7 @@ This data set includes the year, the state, the racial profile of the aggressor,
 
 
 ## The question that we want to answer is:
-#### "Which groups (racial, religious, gender, etc...) are most frequently targetted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"
+#### "Which groups (racial, religious, gender, etc...) are most frequently targeted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"
 
 Note: This project makes use of the coding language R, functions, and different libraries to run the code.
 
