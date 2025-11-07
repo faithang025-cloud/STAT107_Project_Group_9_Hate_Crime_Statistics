@@ -1,1 +1,34 @@
 # for all ploting code and testing
+As mentioned in the data cleaning file, we will be exploring the following prompts and basing the plots off of this.
+
+1. count the number of offenses per bias to see which group is most targeted
+
+```{r}
+
+```
+
+2. count the number of offenses per race to see which group is more likely to be the offender
+
+```{r}
+
+```
+
+3. how has the number of offenses changed over the years 
+
+```{r}
+
+```
+
+4. variation by state of types of offenses
+
+```{r}
+
+```
+
+5. how many of each type of offense there is and compare
+
+```{r}
+
+```
+
+6. how biases and offense correlate (eg. do asians experience intimidation based hate crimes or assult based hate crimes)
