@@ -1,6 +1,6 @@
 ---
 title: "11_DataCleaning"
-author: "Faith Ang, Ria Mathew, Xuan Wei Ding"
+author: "Faith Ang, Ria Mathew, Xuanwei Ding"
 date: "2025-11-04"
 output: html_document
 ---
@@ -54,7 +54,7 @@ Of all of the variables, only few are relevant or useful to the study that will 
 4. bias : group that hate crime was committed against
 5. the offense (intimidation, actual assault, severity of the crime)
 
-They are important because we want to draw comparisons between the variabes to draw conclusions that will lead us closer towards answering our overall questions. Below are some of the ways we will use the aforementioned variables to 
+They are important because we want to draw comparisons between the variabes to draw conclusions that will lead us closer to answering our overall questions. Below are some of the ways we will use the aforementioned variables to 
 
 1. count the number of offenses per bias to see which group is most targeted
 2. count the number of offenses per race to see which group is more likely to be the offender
