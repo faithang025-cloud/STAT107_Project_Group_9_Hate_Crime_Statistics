@@ -7,7 +7,6 @@ As mentioned in the data cleaning file, we will be exploring the following promp
 Using a bar graph we can see that 
 
 ```{r}
-
 #broad groups
 broad_groups <- hateCrime_Final %>%
   mutate(category = case_when(
@@ -136,14 +135,75 @@ ggplot(religion_summary, aes(x = reorder(Bias, -total_incidents),
 ```
 
 
-2. count the number of offenses per race to see which group is more likely to be the offender
+2. compare the number of offenses per race to indentify which group is more likely to be the victim to what offenses.
 
 ```{r}
+#clusters offense type based on everything before ';'
+hateCrime_broad1 <- hateCrime_Final %>%
+  separate_rows(Offense, sep = ";") %>%
+  mutate(
+    Offense_Broad = str_trim(Offense)
+  )
 
-offender_race 
+#clusters bias type based on everything before ';'
+hateCrime_broad <- hateCrime_broad1 %>%
+  separate_rows(Bias, sep = ";") %>%  # splits at ";"
+  mutate(
+    Offense_Broad = str_trim(Offense)
+  )  %>%
+  filter(Bias %in% race_groups) #looks at just race
 
+#table comparing race and offense/ offense frequency
+race_based_offenses <- hateCrime_broad %>%
+  count(Bias, Offense, name = "total_incidents")
+
+race_based_offenses
 ```
+```{r}
+#which 5 offenses per race are most common
+largest_per_race <- race_based_offenses %>%
+  group_by(Bias) %>%
+  slice_max(total_incidents, n = 5)
 
+# top 5 lists across different races organized and tallied
+offense_popularity <- largest_per_race %>%
+  group_by(Offense) %>%
+  summarise(
+    races_count = n_distinct(Bias), 
+    total_incidents_across_races = sum(total_incidents)
+  ) %>%
+  arrange(desc(races_count), desc(total_incidents_across_races))
+
+
+# top 5 offenses that appear in most races and in how many races they appear in
+top_common_offenses <- offense_popularity %>%
+  slice_max(races_count, n = 5)
+top_common_offenses
+```
+```{r}
+# Full table includes only top 5 offenses
+top_common_offenses_race <- race_based_offenses %>%
+  filter(Offense %in% top_common_offenses$Offense)
+
+# Proportion calculations for scaled bar graph
+top_common_offenses_scaled <- top_common_offenses_race %>%
+  group_by(Bias) %>%
+  mutate(prop = total_incidents / sum(total_incidents)) %>%
+  ungroup()
+
+# Plot scaled bar graph
+ggplot(top_common_offenses_scaled, aes(x = Bias, y = prop, fill = Offense)) +
+  geom_bar(stat = "identity") +
+  scale_fill_brewer(palette = "Set2") +  # still works with ggplot2
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = "Top 5 Race Based Offenses: Scaled",
+    x = "Victim Race",
+    y = "Incidents Proportion",
+    fill = "Offense Type"
+  )
+```
 3. how has the number of offenses changed over the years 
 
 ```{r}
