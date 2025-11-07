@@ -6,12 +6,8 @@ In order to figure out this scale, we use raw data of hate crimes that was colle
 This data set includes the year, the state, the racial profile of the aggressor, the victim, the nature of the crime, and the motive of the crime.
 
 
-## The question(s) that we want to answer is/are:
-#### "How many hate crimes were reported per year, and how has that changed over time?"
-#### "Which states report the highest and lowest total number of hate crimes?"
-#### "What are the most frequently targeted groups (e.g., by race, religion, gender, etc.)?"
-#### "What proportion of total crimes are racially motivated vs. religion/gender/sexual orientation–motivated?"
-#### "Have certain types of hate crimes (e.g., anti-Asian, anti-Black, anti-religion) increased or decreased disproportionately over time?"
+## The question that we want to answer is:
+#### "Which groups (racial, religious, gender, etc...) are most frequently targetted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"
 
 Note: This project makes use of the coding language R, functions, and different libraries to run the code.
 
