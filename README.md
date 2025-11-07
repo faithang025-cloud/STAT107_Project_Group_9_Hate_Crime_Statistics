@@ -1,8 +1,48 @@
 # STAT107_Project_Group_9_Hate_Crime_Statistics
-A project for the course STATS107. This will take data from the FBI, analyze it, and answer several questions
+## A project for the course STATS107. This will take data from the FBI database, analyze it, and answer several questions with this data.
 
-### The point of this project is to take the data about hate crimes, provided by the FBI, clean the data, and compile it into something that could be used and understood.
+It seems that with the passage of time, there are more and more reported hate crimes in media. However, what is seen in media is only a small part of the full scale of what reality is. 
+In order to figure out this scale, we use raw data of hate crimes that was collected by the [FBI](www.fbi.gov), recorded from the years 1991 to 2024.
+This data set includes the year, the state, the racial profile of the aggressor, the victim, the nature of the crime, and the motive of the crime.
 
-This project uses functions, and different libraries to run the code, and make it easier on the eyes to view the code when the functions are packed away in different files, all nice and neat.
 
-To start out, run the files, **00_requirements.R**, **01_funct_DataCeaning.R**, and **02_funct_Plots.R**. That way, all of the functions and libraries needed for this project are downloaded and ready for use.
+## The question(s) that we want to answer is/are:
+#### "How many hate crimes were reported per year, and how has that changed over time?"
+#### "Which states report the highest and lowest total number of hate crimes?"
+#### "What are the most frequently targeted groups (e.g., by race, religion, gender, etc.)?"
+#### "What proportion of total crimes are racially motivated vs. religion/gender/sexual orientation–motivated?"
+#### "Have certain types of hate crimes (e.g., anti-Asian, anti-Black, anti-religion) increased or decreased disproportionately over time?"
+
+Note: This project makes use of the coding language R, functions, and different libraries to run the code.
+
+---
+
+# Table of Contents
+
+### 00_requirements.R 
+#### An R file containing required libraries not included with standard R database. Needs to be set up for the project to work properly
+
+### 01_funct_DataCleaning.R
+#### An R file containing the functions that will be used to clean the data set and prepare the dataset for plotting and analyzing. Must be run in order for the project to work correctly.
+
+### 02_funct_Plots.R
+#### An R file containing the functions that will be used to plot varibles in the data for visualization and analysis purposes. Must be run in order for the project to work correctly.
+
+### 11_funct_DataCleaning.Rmd
+#### A Rmd file which will be used to clean the raw data and rename necessary variables.
+
+### 12_funct_Plots.Rmd
+#### A Rmd file which will be used to plot variables, which will be used for analysis of the data, and visualize what trends may occur from the data.
+
+### FinalReport.Rmd
+#### The final compilated report, with the Question, the excecution, findings, final thoughts, and Plots to support.
+
+### FinalReport.pdf
+#### The final report, but knitted into a pdf document for ease of viewing, and what the final report should look like.
+
+---
+
+# Instructions
+
+1. To start out, use R to run the files, **00_requirements.R**, **01_funct_DataCeaning.R**, and **02_funct_Plots.R**.
+That way, all of the functions and libraries needed for this project are downloaded and ready for use.
