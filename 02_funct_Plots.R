@@ -3,8 +3,8 @@
 
 # Bar graph
 plot_bar <- function(data, x, fill) {
-  ggplot(data, aes(x = x, fill = fill)) +
-    geom_bar() + 
+  ggplot(data, aes(x = factor(x), fill = fill)) +
+    geom_bar(aes(x = factor(x)))  
     labs(
       title = "Offense Count per Bias",
       x = "Bias",

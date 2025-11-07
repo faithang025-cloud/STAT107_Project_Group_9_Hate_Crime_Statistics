@@ -5,9 +5,37 @@ As mentioned in the data cleaning file, we will be exploring the following promp
 1. count the number of offenses per bias to see which group is most targeted
 
 Using a bar graph we can see that 
+
+
 ```{r}
 
-plot_bar(hateCrime_Final, "Bias", "Bias")
+# define race-related bias groups
+race_groups <- c("Anti-Black or African American", 
+                 "Anti-White", 
+                 "Anti-Arab", 
+                 "Anti-Asian", 
+                 "Anti-Hispanic or Latino", 
+                 "Anti-Multiple Races, Group", 
+                 "Anti-Other Race/Ethnicity/Ancestry")
+
+# filter rows where Bias is in your race_groups
+race_data <- hateCrime_Final %>%
+  filter(Bias %in% race_groups)
+
+# count how many times each Bias appears
+race_summary <- race_data %>%
+  count(Bias, name = "total_incidents")
+
+# plot
+ggplot(race_summary, aes(x = reorder(Bias, -total_incidents), 
+                         y = total_incidents, 
+                         fill = Bias)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "Total Number of Hate Crimes by Race Targeted",
+       x = "Race Targeted",
+       y = "Total Number of Reported Incidents") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
 
