@@ -1,6 +1,6 @@
 ---
 title: "11_DataCleaning"
-author: "Faith Ang"
+author: "Faith Ang, Ria Mathew, Xuan Wei Ding"
 date: "2025-11-04"
 output: html_document
 ---
@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Data Cleaning
-#test
 
 Data often needs to be cleaned. This ensures the best dataset to use for analysis.
 
@@ -18,6 +17,7 @@ Data often needs to be cleaned. This ensures the best dataset to use for analysi
 ## put the csv here
 source("00_requirements.R")
 
+#reads csv and names it for easy callback
 hateCrime <- read_csv("hate_crime.csv")
 ```
 
@@ -25,7 +25,7 @@ hateCrime <- read_csv("hate_crime.csv")
 
 First, we will remove any rows with missing values. Then, we will convert categorical variables to factors.
 This is done using functions defined in "01_funct_DataCleaning.R".
-What this does is that it sources the functions from that file and applies them to the `hateCrime` dataset.
+This sources functions from that file and applies them to the `hateCrime` dataset.
 
 ```{r, echo=FALSE}
 
@@ -37,20 +37,22 @@ hateCrime_Final <- to_factors(hateCrime_Clean)
 
 Now, we can view the cleaned dataset.
 ```{r}
-
 head(hateCrime_Final, 10)
-
 ```
 
 The Question that we want to focus on is: 
 
-# insert question here
+"Which groups (racial, religious, gender, etc...) are most frequently targeted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"
 
 In order to answer this, it would be good to visualize the data and determine what can be gleaned from the data
 
 Of all of the variables, only few are relevant or useful to the study that will be conducted. These Variables are:
 
-# insert variables here.
+1. race of the offender : same
+2. year : year of offense
+3. state : state which offense took place
+4. bias : group that hate crime was committed against
+5. the offense (intimidation, actual assault, severity of the crime)
 
 They are important because #insert why here#
 
