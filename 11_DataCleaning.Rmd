@@ -37,7 +37,7 @@ hateCrime_Clean <- to_factors(hateCrime_Clean)
 
 Now, we can view the cleaned dataset.
 ```{r}
-head(hateCrime_Final, 10)
+head(hateCrime_Clean, 10)
 ```
 
 The Question that we want to focus on is: 

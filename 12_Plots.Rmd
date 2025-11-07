@@ -6,7 +6,9 @@ As mentioned in the data cleaning file, we will be exploring the following promp
 
 Using a bar graph we can see that 
 ```{r}
-#plot_bar(hateCrime_Final, x = Bias, fill = Bias)
+
+plot_bar(hateCrime_Final, "Bias", "Bias")
+
 ```
 
 

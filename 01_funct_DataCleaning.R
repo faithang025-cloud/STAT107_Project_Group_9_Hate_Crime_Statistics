@@ -32,7 +32,7 @@ data_rename <- function(data) {
          Offense = offense_name,
          Bias = bias_desc,
          Year = data_year,
-         State = state_name
+         State = state_name,
          "Victim Count" = victim_count
          )
 
