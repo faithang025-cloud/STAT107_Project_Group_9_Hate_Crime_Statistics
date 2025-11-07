@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Data Cleaning
-#test
 
 Data often needs to be cleaned. This ensures the best dataset to use for analysis.
 
@@ -54,7 +53,17 @@ Of all of the variables, only few are relevant or useful to the study that will 
 
 They are important because #insert why here#
 
+```{r}
 
+hateCrime_Final <- data_rename(hateCrime_Final)
+
+
+```
+
+```{r}
+# checking if the variables are named
+head(hateCrime_Final)
+```
 
 
 
