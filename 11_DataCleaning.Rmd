@@ -34,4 +34,9 @@ hateCrime_Clean <- remove_na(hateCrime)
 hateCrime_Final <- to_factors(hateCrime_Clean)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Now, we can view the cleaned dataset.
+```{r}
+
+head(hateCrime_Final, 10)
+
+```
