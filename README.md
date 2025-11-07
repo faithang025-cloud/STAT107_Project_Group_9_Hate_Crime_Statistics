@@ -42,3 +42,18 @@ Note: This project makes use of the coding language R, functions, and different 
 
 1. To start out, use R to run the files, **00_requirements.R**, **01_funct_DataCeaning.R**, and **02_funct_Plots.R**.
 That way, all of the functions and libraries needed for this project are downloaded and ready for use.
+
+2. Go to 11_dataCleaning.Rmd, and read through the steps of how the data is cleaned, and our thought process as to what variables we used for this study. 
+This file should allow the data to be cleaned and correctly renamed for the ease of viewing future plots.
+
+3. Go to 12_Plots.Rmd, and read through the steps and thought processes on what plots are used, the reasoning behind using the variables chosen, and inferences from the resulting graph.
+
+4. Finally, Go to FinalReport.Rmd, and view the cumulative report and data. Run each code box to see the resulting graphs and the final report.
+
+5. You are done. Feel free to download the pdf just to see how it will look in pdf format.
+
+---
+
+#### Credits
+
+A special thank you to the [FBI](www.fbi.gov) for free use of this raw data.
