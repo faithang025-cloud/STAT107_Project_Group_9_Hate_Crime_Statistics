@@ -2,9 +2,7 @@
 As mentioned in the data cleaning file, we will be exploring the following prompts and basing the plots off of this.
 
 
-1. count the number of offenses per bias to see which group is most targeted
-
-Using a bar graph we can see that 
+1. Count the number of offenses per bias to see which group is most frequently targeted
 
 ```{r}
 #broad groups
@@ -135,7 +133,7 @@ ggplot(religion_summary, aes(x = reorder(Bias, -total_incidents),
 ```
 
 
-2. compare the number of offenses per race to indentify which group is more likely to be the victim to what offenses.
+2. Compare the number of offenses by race to identify which groups are more likely to be the victim to what offenses.
 
 ```{r}
 #clusters offense type based on everything before ';'
@@ -204,22 +202,26 @@ ggplot(top_common_offenses_scaled, aes(x = Bias, y = prop, fill = Offense)) +
     fill = "Offense Type"
   )
 ```
-3. how has the number of offenses changed over the years 
+3. Analyze how the number of offenses has changed over time. 
+
+```{r}
+#We can explore using year of the offense and also the date to see how things change over the months even - this would mean adding that variable in the data cleaning though
+```
+
+4. Examine variation by state of offense types
 
 ```{r}
 
 ```
 
-4. variation by state of types of offenses
+5. See how many of each type of offense there is and compare quantities
 
 ```{r}
 
 ```
 
-5. how many of each type of offense there is and compare
+6. Find correlations between biases and offense (eg. do Asians experience  intimidation based hate crimes or assault based hate crimes)
 
 ```{r}
 
 ```
-
-6. how biases and offense correlate (eg. do asians experience intimidation based hate crimes or assult based hate crimes)

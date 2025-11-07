@@ -1,27 +1,49 @@
 ---
-title: "Final Report for Hate Crime Statistics"
+title: "Analyzing Hate Crime Trends in the United States"
+author: " Ria Mathew, Faith Ang, Xuan Wei Ding"
+date: "November 7, 2025"
 output: html_document
-date: "2025-11-04"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-## Project
+## Abstract
+In this report, we looked at the United States hate crime data from the Federal Bureau of Investigation (FBI) data set to analyze the following question: *"Which groups (racial, religious, gender, etc...) are most frequently targeted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"*. Using data visualizations such as bar graphs and statistical summaries (such as tables), we can identify hate crime trends and draw comparisons by bias, offender's race, and other carefully chosen variables. Our hope is to provide valuable insights that will lead us closer to discovering how bias-related crimes have evolved over time, discover what may trigger these crimes, and see who may be most susceptible to be victim of such hate crimes. We hope to find how data and statistical analysis can be used to make social justice discoveries.
 
+---
 
+## Introduction
+The goal of this analysis is to investigate patterns in hate crimes across the United States. To answer our overarching research question, we developed specific prompts to guide our analysis and the visualizations we will create. These 6 prompts are also written out and further explored in our Plots.Rmd file.
 
-```{r cars}
-summary(cars)
-```
+1. Count the number of offenses per bias to see which group is most frequently targeted
+2. Compare the number of offenses by race to identify which groups are more likely to be the victim to what offenses.
+3. Analyze how the number of offenses has changed over time. 
+4. Examine variation by state of offense types
+5. See how many of each type of offense there is and compare quantities
+6. Find correlations between biases and offense (eg. do Asians experience  intimidation based hate crimes or assault based hate crimes)
 
-## Including Plots
+This analysis may benefit policymakers, sociologists, and law enforcement agencies and even the FBI from which the data set itself was retrieved. It may benefit them by identifying demographic trends and creating strategies towards prevention. Also understanding which groups may be most at risk can even help larger organizations and employers to create resources for employees to easily report such incidents.
 
-You can also embed plots, for example:
+---
 
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
+## Data
+We used the `hate_crime.csv` dataset. The raw data from the FBI data set (retrieved directly from their website) contains data over the span of 33 years (1994 to 2024) with 265,834 individual hate crime cases with 28 variables ranging from the dates of the incidents, the perpetrators race, the crime location and more. 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The Data Cleaning Process:
+First, any rows with missing values were removed. Next, all character-type columns were converted to factors for statistical analysis and visualization of categorical data such as race, offense type, and bias. Finally, several columns were renamed for readability. These steps ensured that the dataset was clean, consistent, and ready for analysis.
+
+After cleaning we decided to focus on the variables:
+- Race of Offender: race of the offender  
+- Year: year of the offense  
+- State: where the offense took place  
+- Bias: the group targeted by the hate crime  
+- Offense: type of crime (e.g., intimidation, assault)  
+- Victim Count: number of victims per case  
+
+---
+
+## Visualizations
+TODO
+---
+
+## Analysis
+TODO
