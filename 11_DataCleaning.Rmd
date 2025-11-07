@@ -32,7 +32,7 @@ This sources functions from that file and applies them to the `hateCrime` datase
 source("01_funct_DataCleaning.R")
 hateCrime_Clean <- remove_na(hateCrime)
 
-hateCrime_Final <- to_factors(hateCrime_Clean)
+hateCrime_Clean <- to_factors(hateCrime_Clean)
 ```
 
 Now, we can view the cleaned dataset.
@@ -71,7 +71,7 @@ They are important because we want to draw comparisons between the variabes to d
 
 
 ```{r}
-hateCrime_Final <- data_rename(hateCrime_Final)
+hateCrime_Final <- data_rename(hateCrime_Clean)
 # checking if the variables are named
 head(hateCrime_Final)
 ```
