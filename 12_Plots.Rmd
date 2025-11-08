@@ -1,10 +1,15 @@
 # for all ploting code and testing
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 As mentioned in the data cleaning file, we will be exploring the following prompts and basing the plots off of this.
 
 
 1. Count the number of offenses per bias to see which group is most frequently targeted
 
-
+```{r}
 #broad groups
 broad_groups <- hateCrime_Final %>%
   mutate(category = case_when(
@@ -38,11 +43,11 @@ ggplot(category_summary, aes(x = reorder(category, -total_incidents), y = total_
        y = "Total Incidents") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 15, hjust = 1))
+```
 
 
 
-
-
+```{r}
 race_groups <- c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
                  "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
                  "Anti-Native Hawaiian or Other Pacific Islander", "Anti-Multiple Races, Group",
@@ -196,6 +201,8 @@ ggplot(top_common_offenses_scaled, aes(x = Bias, y = prop, fill = Offense)) +
 ```
 3. Analyze how the number of offenses has changed over time. 
 
+
+```{r}
 # Add Year from IncidentDate (safe version)
 hateCrime_Final <- hateCrime_Final %>%
   mutate(
@@ -235,6 +242,7 @@ ggplot(yearly_trend, aes(x = Year, y = incidents, color = category, group = cate
 
 4. Examine variation by state of offense types
 
+```{r}
 # Split multiple offenses and clean
 state_offense_data <- hateCrime_Final %>%
   tidyr::separate_rows(Offense, sep = ";") %>%
@@ -261,6 +269,7 @@ ggplot(state_top_offenses, aes(x = reorder(State, incidents), y = incidents, fil
 
 5. See how many of each type of offense there is and compare quantities
 
+```{r}
 # Count total occurrences of each offense (split by ';')
 offense_totals <- hateCrime_Final %>%
   tidyr::separate_rows(Offense, sep = ";") %>%
@@ -281,6 +290,8 @@ ggplot(head(offense_totals, 10), aes(x = reorder(Offense, total_incidents), y = 
 
 6. Find correlations between biases and offense (eg. do Asians experience  intimidation based hate crimes or assault based hate crimes)
 
+
+```{r}
 # Define race biases
 race_groups <- c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
                  "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",

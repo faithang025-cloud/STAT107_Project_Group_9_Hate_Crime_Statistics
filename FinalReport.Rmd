@@ -6,7 +6,9 @@ output:
   pdf_document: default
   html_document: default
 ---
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
 
 ## Abstract
 In this report, we looked at the United States hate crime data from the Federal Bureau of Investigation (FBI) data set to analyze the following question: *"Which groups (racial, religious, gender, etc...) are most frequently targeted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"*. Using data visualizations such as bar graphs and statistical summaries (such as tables), we can identify hate crime trends and draw comparisons by bias, offender's race, and other carefully chosen variables. Our hope is to provide valuable insights that will lead us closer to discovering how bias-related crimes have evolved over time, discover what may trigger these crimes, and see who may be most susceptible to be victim of such hate crimes. We hope to find how data and statistical analysis can be used to make social justice discoveries.
@@ -61,7 +63,8 @@ The first thing was to separate the total data into groups based on groups of bi
 Other is anything that falls into gender, or multiple broad categories.
 
 After separating them, we are left with this bar graph.
-```{r} 
+
+```{r, } 
 knitr::include_graphics("hate_crime_category.png") 
 ```
 This bar graph shows that a majority of hate crime that is conducted is targeting race, compared to the other categories. This may make a lot of sense, as Race/Ethnicity is among the first thing that someone sees when looking at a person, whereas for the other categories, it may not be as obvious.
@@ -109,6 +112,7 @@ knitr::include_graphics("top5_offenses.png")
 
 Looking at this graph, it can be seen that the group called "Anti-Multiple Races, Group" experiences more destruction or vandalism of property by proportion. It can also be seen that some proportions of type of crime are similar, such as "Intimidation," while other crimes like "Simple Assault" have some proportions that are a lot higher than other proportion between each race/ethnicity.
 
+###  More to come
 
 ---
 
@@ -123,9 +127,7 @@ TBD
 Faith Ang:
 - Created the GitHub repository and the R and Rmd blank files for the project
 - Wrote a substantial amount of the README.md file
-- created 00_requirements.R and filled it with the libraries needed for the project
-- Filled 01_funct_DataCleaning.R with functions to clean data and rename variables
-- Made ggplot templates for various plots in 02_funct_Plots.R
+- Made ggplot templates for various plots in 02_funct_Plots.R, and functions for data cleaning
 - Worked on 11_DataCleaning.Rmd and 12_Plots.Rmd (question 1).
 - Worked on the Visualization and Analysis portion of FinalReport.Rmd
 
@@ -135,4 +137,4 @@ Ria Mathew:
 - Worked on Abstract, introduction, and data of FinalReport.Rmd.
 
 Xuanwei Ding:
-- TBD
+- Worked substantially on 12_Plots.Rmd, coding for questions 3, 4, 5, and 6 on 12_Plots.Rmd.
