@@ -1,8 +1,10 @@
 ---
 title: "Analyzing Hate Crime Trends in the United States"
-author: " Ria Mathew, Faith Ang, Xuan Wei Ding"
+author: ' Ria Mathew, Faith Ang, Xuanwei Ding'
 date: "November 7, 2025"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 
@@ -41,9 +43,96 @@ After cleaning we decided to focus on the variables:
 
 ---
 
-## Visualizations
-TODO
+## Visualizations an Analysis
+
+### Here is a review of the question that this project aims to answer: 
+
+#### "Which groups (racial, religious, gender, etc...) are most frequently targeted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"
+
+
+The first thing that is very important to know is which group of people are the most common victims of hate crime.
+The first thing was to separate the total data into groups based on groups of bias. The main groups are
+
+- Race/Ethnicity
+- Religion
+- Sexual Orientation
+- Other.
+
+Other is anything that falls into gender, or multiple broad categories.
+
+After separating them, we are left with this bar graph.
+```{r} 
+knitr::include_graphics("hate_crime_category.png") 
+```
+This bar graph shows that a majority of hate crime that is conducted is targeting race, compared to the other categories. This may make a lot of sense, as Race/Ethnicity is among the first thing that someone sees when looking at a person, whereas for the other categories, it may not be as obvious.
+
 ---
 
-## Analysis
-TODO
+Looking into the Race/Ethnicity category, we also seek to find the group of people within this group is targeted the most. After filtering out the race-based hate crimes from the total, and further categorizing them based on the race/ethnicity of the victim, we have this plot:
+
+```{r} 
+knitr::include_graphics("race_crime.png") 
+```
+
+This plot shows that of the categories, Black or African American individuals were most targeted. One thing that seems to be interesting is how there is an "Anti-Other Race/Ethnicity/Ancestry", but doesn't specify what it can be. 
+
+In a way, it is interesting that Black or African Americans have the most victims of hate crime, almost disproportionately compared to the other ethnicities. 
+
+---
+
+Looking at the next category, Religion, this is what the graph looks like when the religions are separated, to see which religion is the most attacked in hate crimes. 
+
+```{r} 
+knitr::include_graphics("religion_crimes.png") 
+```
+Here, it seems that an overwhelming amount of attacks are towards Jewish individuals. However, one thing to point out is that someone who is Jewish could also pertain to someone's ethnicity. So the reality might be that Jews may be better suited in the Race/Ethnicity category. However, for the purposes of this current plot, it will be counted as a religion.
+
+---
+
+Next is Sexual Orientation, which can be seen here:
+
+```{r} 
+knitr::include_graphics("sex_crime.png") 
+```
+
+It seems that from the data, the most targeted group are against Gay (male), followed by a mixed group that may contain Lesbians, Gay, Bisexual, or Transgender individuals. This may be interesting, as it might indicate that there are more instances of hate crime are done towards groups of victims rather than a single victim, at least when not pertaining to "Gay (Male)" 
+
+---
+
+Going back to Race/Ethnicity, we were able to further separate each group by the proportion of different kinds of hate crimes. Of the many types of hate crimes that could be committed, the top 5 are: Intimidation, Destruction/Damage/Vandalism of Property, Simple Assault, Aggravated Assault, and Burglary/Breaking & Entering.
+
+This was further placed in a bar graph to show the distribution of these crimes.
+
+```{r} 
+knitr::include_graphics("top5_offenses.png") 
+```
+
+Looking at this graph, it can be seen that the group called "Anti-Multiple Races, Group" experiences more destruction or vandalism of property by proportion. It can also be seen that some proportions of type of crime are similar, such as "Intimidation," while other crimes like "Simple Assault" have some proportions that are a lot higher than other proportion between each race/ethnicity.
+
+
+---
+
+## Takeaway
+
+TBD
+
+---
+
+### Contributions Section
+
+Faith Ang:
+- Created the GitHub repository and the R and Rmd blank files for the project
+- Wrote a substantial amount of the README.md file
+- created 00_requirements.R and filled it with the libraries needed for the project
+- Filled 01_funct_DataCleaning.R with functions to clean data and rename variables
+- Made ggplot templates for various plots in 02_funct_Plots.R
+- Worked on 11_DataCleaning.Rmd and 12_Plots.Rmd (question 1).
+- Worked on the Visualization and Analysis portion of FinalReport.Rmd
+
+Ria Mathew:
+- Edited: README.md, 01_funct_DataCleaning.R, 02_funct_Plots.R. (grammar, spelling, and smoother transitions)
+- Worked on 11_DataCleaning.Rmd (revised and improved) and 12_Plots.Rmd (question 2).
+- Worked on Abstract, introduction, and data of FinalReport.Rmd.
+
+Xuanwei Ding:
+- TBD

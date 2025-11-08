@@ -65,7 +65,7 @@ They are important because we want to draw comparisons between the variabes to d
 ```{r}
 hateCrime_renamed <- data_rename(hateCrime_Clean)
 #create a new dataset with only those variables
-hateCrime_Final <- hateCrime_Final %>%
+hateCrime_Final <- hateCrime_renamed %>%
   select("Race of Offender", Offense, Bias, Year, State, "Victim Count")
 # checking if the variables are named
 head(hateCrime_Final)
