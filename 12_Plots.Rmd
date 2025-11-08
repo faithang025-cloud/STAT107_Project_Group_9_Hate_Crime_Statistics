@@ -4,57 +4,49 @@ As mentioned in the data cleaning file, we will be exploring the following promp
 
 1. Count the number of offenses per bias to see which group is most frequently targeted
 
-```{r}
+
 #broad groups
 broad_groups <- hateCrime_Final %>%
   mutate(category = case_when(
-    Bias %in% c("Anti-Black or African American", "Anti-White", "Anti-Arab", 
+    Bias %in% c("Anti-Black or African American", "Anti-White", "Anti-Arab",
                 "Anti-Asian", "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
                 "Anti-Native Hawaiian or Other Pacific Islander",
                 "Anti-Multiple Races, Group", "Anti-Other Race/Ethnicity/Ancestry") ~ "Race/Ethnicity",
     
     Bias %in% c("Anti-Jewish", "Anti-Islamic (Muslim)", "Anti-Catholic", "Anti-Buddhist",
-                "Anti-Protestant", "Anti-Other Religion", "Anti-Mormon", "Anti-Jehovah's Witness", "Anti-Sikh",
-                "Anti-Atheist/Agnostic") ~ "Religion",
+                "Anti-Protestant", "Anti-Other Religion", "Anti-Mormon", "Anti-Jehovah's Witness", 
+                "Anti-Sikh", "Anti-Atheist/Agnostic") ~ "Religion",
     
-    Bias %in% c("Anti-Gay (Male)", "Anti-Lesbian (Female)", "Anti-Heterosexual", "Anti-Transgender",
-                "Anti-Lesbian, Gay, Bisexual, or Transgender (Mixed Group)") ~ "Sexual Orientation",
+    Bias %in% c("Anti-Gay (Male)", "Anti-Lesbian (Female)", "Anti-Heterosexual", 
+                "Anti-Transgender", "Anti-Lesbian, Gay, Bisexual, or Transgender (Mixed Group)") ~ "Sexual Orientation",
     
-    #Bias %in% c("Anti-Female", "Anti-Male", "Anti-Gender Non-Conforming") ~ "Gender",
-    
-    TRUE ~ "Other"  # anything not matched goes here
+    TRUE ~ "Other"
   ))
 
 # sorting by category
 
 category_summary <- broad_groups %>%
-  count(category, name = "total_incidents")
+  count(category, name = "total_incidents") %>%
+  arrange(desc(total_incidents))
 
 # the plot
 
-ggplot(category_summary, aes(x = reorder(category, -total_incidents),
-                             y = total_incidents,
-                             fill = category)) +
+ggplot(category_summary, aes(x = reorder(category, -total_incidents), y = total_incidents, fill = category)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
-  labs(title = "Hate Crimes by Category",
-       x = "Category",
-       y = "Total Number of Reported Incidents") +
+  labs(title = "Hate Crimes by Broad Bias Category",
+       x = "Bias Category",
+       y = "Total Incidents") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 15, hjust = 1))
 
 
 
-```
 
 
-
-```{r}
-
-# define race-related bias groups
-race_groups <- c("Anti-Black or African American", "Anti-White", "Anti-Arab", 
-                "Anti-Asian", "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
-                "Anti-Native Hawaiian or Other Pacific Islander",
-                "Anti-Multiple Races, Group", "Anti-Other Race/Ethnicity/Ancestry")
+race_groups <- c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
+                 "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
+                 "Anti-Native Hawaiian or Other Pacific Islander", "Anti-Multiple Races, Group",
+                 "Anti-Other Race/Ethnicity/Ancestry")
 
 # filter rows where Bias is in your race_groups
 race_data <- hateCrime_Final %>%
@@ -204,24 +196,120 @@ ggplot(top_common_offenses_scaled, aes(x = Bias, y = prop, fill = Offense)) +
 ```
 3. Analyze how the number of offenses has changed over time. 
 
-```{r}
-#We can explore using year of the offense and also the date to see how things change over the months even - this would mean adding that variable in the data cleaning though
+# Add Year from IncidentDate (safe version)
+hateCrime_Final <- hateCrime_Final %>%
+  mutate(
+    Year_raw = stringr::str_sub(IncidentDate, 1, 4),
+    Year = as.numeric(Year_raw),
+    Year = ifelse(is.na(Year) | Year < 1900 | Year > 2030, NA, Year)  # filter impossible years
+  ) %>%
+  filter(!is.na(Year))
+
+# Count incidents per year and broad category
+yearly_trend <- hateCrime_Final %>%
+  mutate(category = case_when(
+    Bias %in% c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
+                "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
+                "Anti-Native Hawaiian or Other Pacific Islander", "Anti-Multiple Races, Group",
+                "Anti-Other Race/Ethnicity/Ancestry") ~ "Race/Ethnicity",
+    Bias %in% c("Anti-Jewish", "Anti-Islamic (Muslim)", "Anti-Catholic", "Anti-Buddhist",
+                "Anti-Protestant", "Anti-Other Religion", "Anti-Mormon", "Anti-Jehovah's Witness",
+                "Anti-Sikh", "Anti-Atheist/Agnostic") ~ "Religion",
+    Bias %in% c("Anti-Gay (Male)", "Anti-Lesbian (Female)", "Anti-Heterosexual",
+                "Anti-Transgender", "Anti-Lesbian, Gay, Bisexual, or Transgender (Mixed Group)") ~ "Sexual Orientation",
+    TRUE ~ "Other"
+  )) %>%
+  count(Year, category, name = "incidents")
+
+# Plot trend over time
+ggplot(yearly_trend, aes(x = Year, y = incidents, color = category, group = category)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 1.5) +
+  scale_x_continuous(breaks = seq(min(yearly_trend$Year), max(yearly_trend$Year), by = 1)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Hate Crime Incidents Over Time by Bias Category",
+       x = "Year", y = "Number of Incidents", color = "Bias Category")
+
 ```
 
 4. Examine variation by state of offense types
 
-```{r}
+# Split multiple offenses and clean
+state_offense_data <- hateCrime_Final %>%
+  tidyr::separate_rows(Offense, sep = ";") %>%
+  mutate(Offense = stringr::str_trim(Offense)) %>%
+  filter(!is.na(State), State != "")
+
+# Top 3 offenses per state
+state_top_offenses <- state_offense_data %>%
+  count(State, Offense, name = "incidents") %>%
+  group_by(State) %>%
+  slice_max(incidents, n = 3) %>%
+  ungroup()
+
+# Plot
+ggplot(state_top_offenses, aes(x = reorder(State, incidents), y = incidents, fill = Offense)) +
+  geom_col(position = "dodge") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Top 3 Hate Crime Offenses by State",
+       x = "State", y = "Number of Incidents", fill = "Offense Type") +
+  theme(legend.position = "bottom")
 
 ```
 
 5. See how many of each type of offense there is and compare quantities
 
-```{r}
+# Count total occurrences of each offense (split by ';')
+offense_totals <- hateCrime_Final %>%
+  tidyr::separate_rows(Offense, sep = ";") %>%
+  mutate(Offense = stringr::str_trim(Offense)) %>%
+  count(Offense, name = "total_incidents") %>%
+  filter(!is.na(Offense), Offense != "") %>%
+  arrange(desc(total_incidents))
+
+# Plot top 10
+ggplot(head(offense_totals, 10), aes(x = reorder(Offense, total_incidents), y = total_incidents)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Top 10 Most Common Hate Crime Offense Types",
+       x = "Offense Type", y = "Total Incidents")
 
 ```
 
 6. Find correlations between biases and offense (eg. do Asians experience  intimidation based hate crimes or assault based hate crimes)
 
-```{r}
+# Define race biases
+race_groups <- c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
+                 "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
+                 "Anti-Native Hawaiian or Other Pacific Islander", "Anti-Multiple Races, Group",
+                 "Anti-Other Race/Ethnicity/Ancestry")
+
+# Clean and split Offense and Bias
+bias_offense_clean <- hateCrime_Final %>%
+  tidyr::separate_rows(Offense, sep = ";") %>%
+  tidyr::separate_rows(Bias, sep = ";") %>%
+  mutate(Offense = stringr::str_trim(Offense),
+         Bias = stringr::str_trim(Bias)) %>%
+  filter(Bias %in% race_groups, !is.na(Offense), Offense != "")
+
+# Count and compute % of total offenses *for each bias*
+bias_offense_matrix <- bias_offense_clean %>%
+  count(Bias, Offense, name = "count") %>%
+  group_by(Bias) %>%
+  mutate(pct = count / sum(count)) %>%
+  ungroup()
+
+# Heatmap: % of incidents per bias that are a given offense
+ggplot(bias_offense_matrix, aes(x = Bias, y = Offense, fill = pct)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "lightyellow", high = "darkred", labels = scales::percent) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.text.y = element_text(size = 8)) +
+  labs(title = "Which Offenses Are Most Common for Each Racial Bias?",
+       x = "Targeted Group", y = "Offense Type", fill = "% of Incidents")
 
 ```
