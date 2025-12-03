@@ -97,6 +97,7 @@ ggplot(sex_summary, aes(x = reorder(Bias, -total_incidents),
                          y = total_incidents, 
                          fill = Bias)) +
   geom_bar(stat = "Identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Total Number of Hate Crimes by Sexuality",
        x = "Sexuality Targeted",
        y = "Total Number of Reported Incidents") 
@@ -123,6 +124,7 @@ ggplot(religion_summary, aes(x = reorder(Bias, -total_incidents),
                          y = total_incidents, 
                          fill = Bias)) +
   geom_bar(stat = "Identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Total Number of Hate Crimes by Religion",
        x = "Religion Targeted",
        y = "Total Number of Reported Incidents") 
@@ -141,7 +143,7 @@ hateCrime_broad1 <- hateCrime_Final %>%
   )
 
 #clusters bias type based on everything before ';'
-hateCrime_broad <- hateCrime_broad1 %>%
+hateCrime_broad2 <- hateCrime_broad1 %>%
   separate_rows(Bias, sep = ";") %>%  # splits at ";"
   mutate(
     Offense_Broad = str_trim(Offense)
@@ -149,7 +151,7 @@ hateCrime_broad <- hateCrime_broad1 %>%
   filter(Bias %in% race_groups) #looks at just race
 
 #table comparing race and offense/ offense frequency
-race_based_offenses <- hateCrime_broad %>%
+race_based_offenses <- hateCrime_broad2 %>%
   count(Bias, Offense, name = "total_incidents")
 
 race_based_offenses
@@ -199,46 +201,74 @@ ggplot(top_common_offenses_scaled, aes(x = Bias, y = prop, fill = Offense)) +
     fill = "Offense Type"
   )
 ```
-3. Analyze how the number of offenses has changed over time. 
-
 
 ```{r}
-# Add Year from IncidentDate (safe version)
+#This chi-square test examined whether the distribution of the four most common offense types (vandalism, intimidation, simple assault, and aggravated assault) differed across victim bias categories. From this we got that there is a statistocally significant relationship between the victim's targeted group and the type of offense committed since p-value < 2.2e-16 which is far smaller than our significance level p = 0.05.
+
+top_4 <- c("Destruction/Damage/Vandalism of Property", "Intimidation", "Simple Assault", "Aggravated Assault")
+filtered_offense <- hateCrime_broad2 %>% filter(Offense %in% top_4)
+
+table_pv <- table(filtered_offense$Bias, filtered_offense$Offense)
+chisq.test(table_pv)
+```
+
+
+3. Analyze how the number of offenses has changed over time. 
+```{r}
+# Add Year from Incident Date (safe version)
 hateCrime_Final <- hateCrime_Final %>%
   mutate(
-    Year_raw = stringr::str_sub(IncidentDate, 1, 4),
+    Year_raw = stringr::str_sub(Year, 1, 4),
     Year = as.numeric(Year_raw),
     Year = ifelse(is.na(Year) | Year < 1900 | Year > 2030, NA, Year)  # filter impossible years
   ) %>%
   filter(!is.na(Year))
 
-# Count incidents per year and broad category
 yearly_trend <- hateCrime_Final %>%
-  mutate(category = case_when(
-    Bias %in% c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
-                "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
-                "Anti-Native Hawaiian or Other Pacific Islander", "Anti-Multiple Races, Group",
-                "Anti-Other Race/Ethnicity/Ancestry") ~ "Race/Ethnicity",
-    Bias %in% c("Anti-Jewish", "Anti-Islamic (Muslim)", "Anti-Catholic", "Anti-Buddhist",
-                "Anti-Protestant", "Anti-Other Religion", "Anti-Mormon", "Anti-Jehovah's Witness",
-                "Anti-Sikh", "Anti-Atheist/Agnostic") ~ "Religion",
-    Bias %in% c("Anti-Gay (Male)", "Anti-Lesbian (Female)", "Anti-Heterosexual",
-                "Anti-Transgender", "Anti-Lesbian, Gay, Bisexual, or Transgender (Mixed Group)") ~ "Sexual Orientation",
-    TRUE ~ "Other"
-  )) %>%
-  count(Year, category, name = "incidents")
+  count(Year, name = "incidents")
 
 # Plot trend over time
-ggplot(yearly_trend, aes(x = Year, y = incidents, color = category, group = category)) +
-  geom_line(size = 1.2) +
-  geom_point(size = 1.5) +
+ggplot(yearly_trend, aes(x = Year, y = incidents)) +
+  geom_line(size = 1.2, color = "steelblue") +
+  geom_point(size = 1.5, color = "steelblue") +
   scale_x_continuous(breaks = seq(min(yearly_trend$Year), max(yearly_trend$Year), by = 1)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = "Hate Crime Incidents Over Time by Bias Category",
-       x = "Year", y = "Number of Incidents", color = "Bias Category")
+  labs(title = "Hate Crime Incidents Over Time",
+       x = "Year", y = "Number of Incidents")
 
 ```
+
+```{r}
+#Looking at over time incidents for each of the most prevenlent ones in each category from step 1:
+# religion - anti-jewish
+# race - african american
+# sexual orientation - anti-gay
+# smtn else
+
+three_groups <- c(
+  "Anti-Gay (Male)", #most common in  
+  "Anti-Black or African American", #
+  "Anti-Jewish" # comment
+)
+filtered_data <- hateCrime_Final %>%
+  filter(Bias %in% three_groups)
+three_yearly <- filtered_data %>%
+  count(Bias, Year, name = "incidents")
+
+ggplot(three_yearly, aes(x = Year, y = Bias, size = incidents, fill = Bias)) +
+  geom_point(alpha = 0.7, shape = 21) +
+  scale_size(range = c(4, 18)) +
+  scale_y_discrete(limits = three_groups) + 
+  theme_minimal() +
+  labs(
+    title = "Hate Crime Incidents Over Time",
+    subtitle = "Bubble size reflects number of incidents",
+    x = "Year",
+    size = "Incident Count"
+  )
+```
+
 
 4. Examine variation by state of offense types
 
@@ -257,15 +287,64 @@ state_top_offenses <- state_offense_data %>%
   ungroup()
 
 # Plot
-ggplot(state_top_offenses, aes(x = reorder(State, incidents), y = incidents, fill = Offense)) +
-  geom_col(position = "dodge") +
-  coord_flip() +
-  theme_minimal() +
-  labs(title = "Top 3 Hate Crime Offenses by State",
-       x = "State", y = "Number of Incidents", fill = "Offense Type") +
-  theme(legend.position = "bottom")
+offense_list <- unique(state_top_offenses$Offense)
 
+plots <- lapply(offense_list, function(off) {
+  ggplot(state_top_offenses %>% filter(Offense == off), aes(x = reorder(State, incidents), y = incidents, fill = Offense)) +
+    geom_col(position = "dodge") +
+    coord_flip() +
+    theme_minimal() +
+    labs(title = "Top 3 Hate Crime Offenses by State",
+         x = "State", y = "Number of Incidents", fill = "Offense Type") +
+    theme(legend.position = "bottom")
+})
+
+plots[[1]]
+plots[[2]]
+plots[[3]]
 ```
+
+```{r}
+#So far, you have only studied proportions of crime, but not how they relate to geographical location, or with time. I wonder if you can generate plots of how count of crime rates has changed over time for each state.
+
+#You could separate the US into regions, say West Coast, Northern East Coast, Southern US, Southwest, Midwest and Great lakes area, and see how their hate crimes evolve over time. This would be more easily done with summaries and group functions of the dplyr package, and ggplot, which we studied in class.
+
+west_coast <- c("California", "Oregon", "Washington")
+north_east <- c("Maine","New Hampshire","Vermont","Massachusetts","Rhode Island",
+                "Connecticut","New York","New Jersey","Pennsylvania")
+south <- c("Delaware","Maryland","Virginia","West Virginia","Kentucky","North Carolina",
+           "South Carolina","Tennessee","Georgia","Florida","Alabama","Mississippi",
+           "Arkansas","Louisiana","Texas","Oklahoma")
+southwest <- c("Arizona","New Mexico","Nevada","Utah","Colorado")
+midwest <- c("Ohio","Michigan","Indiana","Illinois","Missouri","Wisconsin",
+             "Minnesota","Iowa","Kansas","Nebraska","South Dakota","North Dakota")
+great_lakes <- c("Ohio","Michigan","Indiana","Illinois","Wisconsin","Minnesota")
+
+crime_time <- crime_time %>%
+  mutate(
+    Region = case_when(
+      State %in% west_coast ~ "West Coast",
+      State %in% north_east ~ "Northeast",
+      State %in% south ~ "South",
+      State %in% southwest ~ "Southwest",
+      State %in% midwest ~ "Midwest",
+      TRUE ~ "Other"
+    ) )
+
+region_year <- crime_time %>%
+  group_by(Region, Year) %>%
+  summarise(total_incidents = n(), .groups = "drop")
+
+ggplot(region_year, aes(x = Year, y = total_incidents, color = Region)) +
+  geom_line() +
+  theme_minimal() +
+  labs( title = "Region Based Hate Crime Trends Over Time",
+    x = "Year",
+    y = "Hate Crime Incidents Number",
+    color = "Region"
+  )
+```
+
 
 5. See how many of each type of offense there is and compare quantities
 
@@ -322,5 +401,6 @@ ggplot(bias_offense_matrix, aes(x = Bias, y = Offense, fill = pct)) +
         axis.text.y = element_text(size = 8)) +
   labs(title = "Which Offenses Are Most Common for Each Racial Bias?",
        x = "Targeted Group", y = "Offense Type", fill = "% of Incidents")
-
 ```
+
+
