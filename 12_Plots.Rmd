@@ -75,7 +75,6 @@ ggplot(race_summary, aes(x = reorder(Bias, -total_incidents),
 ```
 
 ```{r}
-
 # define sexuality based bias groups
 sexuality_groups <- c("Anti-Gay (Male)", 
                       "Anti-Lesbian (Female)", 
@@ -84,7 +83,7 @@ sexuality_groups <- c("Anti-Gay (Male)",
                       "Anti-Gender Non-Conforming",
                       "Anti-Lesbian, Gay, Bisexual, or Transgender (Mixed Group)")
 
-# filter rows where Bias is in your race_groups
+# filter rows where Bias is in your race_groups 
 sex_data <- hateCrime_Final %>%
   filter(Bias %in% sexuality_groups)
 
@@ -105,7 +104,6 @@ ggplot(sex_summary, aes(x = reorder(Bias, -total_incidents),
 ```
 
 ```{r}
-
 # define religious based bias groups
 religious_groups <- c("Anti-Jewish", "Anti-Islamic (Muslim)", "Anti-Catholic", "Anti-Buddhist",
                 "Anti-Protestant", "Anti-Other Religion", "Anti-Mormon", "Anti-Jehovah's Witness", "Anti-Sikh",
@@ -128,7 +126,6 @@ ggplot(religion_summary, aes(x = reorder(Bias, -total_incidents),
   labs(title = "Total Number of Hate Crimes by Religion",
        x = "Religion Targeted",
        y = "Total Number of Reported Incidents") 
-
 ```
 
 
@@ -236,11 +233,10 @@ ggplot(yearly_trend, aes(x = Year, y = incidents)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "Hate Crime Incidents Over Time",
        x = "Year", y = "Number of Incidents")
-
 ```
 
 ```{r}
-#Looking at over time incidents for each of the most prevenlent ones in each category from step 1:
+#Looking at over time incidents for each of the most prevalent ones in each category from step 1:
 # religion - anti-jewish
 # race - african american
 # sexual orientation - anti-gay
@@ -262,7 +258,7 @@ ggplot(three_yearly, aes(x = Year, y = Bias, size = incidents, fill = Bias)) +
   scale_y_discrete(limits = three_groups) + 
   theme_minimal() +
   labs(
-    title = "Hate Crime Incidents Over Time",
+    title = "Bias Over the Year",
     subtitle = "Bubble size reflects number of incidents",
     x = "Year",
     size = "Incident Count"
@@ -273,28 +269,33 @@ ggplot(three_yearly, aes(x = Year, y = Bias, size = incidents, fill = Bias)) +
 4. Examine variation by state of offense types
 
 ```{r}
-# Split multiple offenses and clean
 state_offense_data <- hateCrime_Final %>%
   tidyr::separate_rows(Offense, sep = ";") %>%
   mutate(Offense = stringr::str_trim(Offense)) %>%
   filter(!is.na(State), State != "")
 
-# Top 3 offenses per state
 state_top_offenses <- state_offense_data %>%
   count(State, Offense, name = "incidents") %>%
   group_by(State) %>%
   slice_max(incidents, n = 3) %>%
   ungroup()
 
-# Plot
+state_order <- state_top_offenses %>%
+  group_by(State) %>%
+  summarise(total = sum(incidents)) %>%
+  arrange(desc(total)) %>%
+  pull(State)
+
+state_top_offenses$State <- factor(state_top_offenses$State, levels = state_order)
 offense_list <- unique(state_top_offenses$Offense)
 
 plots <- lapply(offense_list, function(off) {
-  ggplot(state_top_offenses %>% filter(Offense == off), aes(x = reorder(State, incidents), y = incidents, fill = Offense)) +
+  ggplot(state_top_offenses %>% filter(Offense == off),
+         aes(x = State, y = incidents, fill = Offense)) +
     geom_col(position = "dodge") +
     coord_flip() +
     theme_minimal() +
-    labs(title = "Top 3 Hate Crime Offenses by State",
+    labs(title = paste("Top 3 Hate Crime Offenses by State:", off),
          x = "State", y = "Number of Incidents", fill = "Offense Type") +
     theme(legend.position = "bottom")
 })
@@ -302,6 +303,7 @@ plots <- lapply(offense_list, function(off) {
 plots[[1]]
 plots[[2]]
 plots[[3]]
+
 ```
 
 ```{r}
