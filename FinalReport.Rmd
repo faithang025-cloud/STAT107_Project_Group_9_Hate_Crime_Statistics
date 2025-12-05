@@ -55,7 +55,7 @@ We conclude that a majority of hate crime targets race. This is not unexpected, 
 
 ```{r, out.width="33%", fig.show="hold"} 
 knitr::include_graphics(
-  c("race_crime.png", "religion_crimes.png", "sex_crime.png")
+  c("race_crime.png", "religion_crimes.png", "sex_crimes.png")
 )
 ```
 
@@ -86,9 +86,9 @@ With each of the different races having similar offense type breakdowns (similar
 From this graph, the graph with the least similar proportions are that from “Anti-Multiple Races, Group” which we can't accurately say reflects differences in offense type based on race since it includes multiple races. 
 
 ```{r, out.width="50%", fig.show="hold"} 
-#knitr::include_graphics(
-  #c("Hate Crime Incidents Over Time png", "Bias Over the Year png")
-#)
+knitr::include_graphics(
+  c("religion_time.png", "bias_time.png")
+)
 ```
 These visuals track hate crime incidents over the years with the second displaying the three most targeted sub bias groups from our previously data visuals. Each point represents a year and their size is corresponds with the number of reported incidents.
 
