@@ -102,13 +102,13 @@ Based on the time charts, we can infer that overall hate-crime incidents are inf
 
 ```{r, out.width="33%", fig.show="hold"} 
 # top 3 hate crime offenses by state graphs 3 
-#knitr::include_graphics(
-  #c("plot 1", "plot 2", "plot 3") 
-#)
+knitr::include_graphics(
+  c("top_3_simple_assault.png", "top_3_intimidation.png", "top_3_vandal.png") 
+)
 ```
 
 ```{r} 
-#knitr::include_graphics("region based hate crime trends over time line graph png") 
+knitr::include_graphics("Incident_over_time.png") 
 ```
 start by talking about both graphs and how you are trying to conclude things about location and why taht is significant
 
@@ -117,7 +117,7 @@ line graph; talk about how you can visualize how the proportion of different cri
 bar graphs; hate crime offenses by state - talk abt significance of looking into that. the y axis has the same order of states in each bar graph to draw comparisons easier. talk about that and how there are differences between states ex: lots of intimdation, very little assault in new jersey but in california pretty much high throughout, not much noticable fluctuation. what can you conclude from that. more. theres a lot you can conclude from this and talk abot significance of this.
 
 ```{r} 
-#knitr::include_graphics("region based hate crime trends over time line graph png") 
+knitr::include_graphics("most_common_bias.png") 
 ```
 
 ---
