@@ -32,7 +32,7 @@ plot_density <- function(data, focus) {
 
 
 #density plot and density plot fill
-plot_2d <- function(data, focus) {
+plot_2d <- function(data, x, focus) {
   ggplot(data, aes(x = x)) + geom_density_2d(aes(col = focus))
 }
 
