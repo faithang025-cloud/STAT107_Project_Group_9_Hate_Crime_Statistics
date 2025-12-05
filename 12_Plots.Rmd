@@ -406,3 +406,12 @@ ggplot(bias_offense_matrix, aes(x = Bias, y = Offense, fill = pct)) +
 ```
 
 
+```{r}
+
+# testing, 2d with region
+hateCrime_Final %>% count(Region)
+
+#plot_2d(hateCrime_Final %>% count(Region), hateCrime_Final$Region)
+
+```
+
