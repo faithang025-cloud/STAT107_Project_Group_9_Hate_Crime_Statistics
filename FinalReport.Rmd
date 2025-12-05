@@ -98,8 +98,6 @@ Although it is a little difficult to tell since there are more incidents with ou
 
 Based on the time charts, we can infer that overall hate-crime incidents are influenced by social or historical forces that affect all groups, not just one. For instance, the upswing from 2018 onwards may be due to the tensions with the political climate or increased media presence, or it may be as simple as better methods for reporting incidents where it seems as though hate crime is increasing when in reality it is changes in accessibility.
 
-####EVERYTHING BEYOND THIS POINT NEEDS TO BE FIXED I have broad idea of how this next section can go and beyond that idk
-
 ```{r, out.width="33%", fig.show="hold"} 
 # top 3 hate crime offenses by state graphs 3 
 knitr::include_graphics(
@@ -119,12 +117,12 @@ bar graphs; hate crime offenses by state - talk abt significance of looking into
 ```{r} 
 knitr::include_graphics("most_common_bias.png") 
 ```
-
+Write here another short analysis on the significance of this graph. 
 ---
 
 ## Takeaway
 
-TBD
+
 
 ---
 
@@ -140,7 +138,7 @@ Faith Ang:
 Ria Mathew:
 - Edited: README.md, 01_funct_DataCleaning.R, 02_funct_Plots.R. (grammar, spelling, and smoother transitions)
 - Worked on 11_DataCleaning.Rmd (revised and improved) and 12_Plots.Rmd (question 2).
-- Worked on Abstract, introduction, and data of FinalReport.Rmd.
+- Worked on Abstract, introduction, Data, Data Cleaning and Visualization and Analysis portion of FinalReport.Rmd.
 
 Xuanwei Ding:
 - Worked substantially on 12_Plots.Rmd, coding for questions 3, 4, 5, and 6 on 12_Plots.Rmd.
