@@ -119,6 +119,13 @@ Clear state-level differences emerge:
 
 California, New York, New Jersey, Washington, and Massachusetts appear near the top in nearly every category, reflecting large, diverse populations and (importantly) relatively strong hate-crime reporting laws and infrastructure.
 New Jersey stands out with extremely high intimidation numbers but much lower simple-assault counts—suggesting that verbal threats, online harassment, or other non-physical confrontations may be more systematically reported or prosecuted there than physical assaults.
+
+```{r}
+
+knitr::include_graphics("most_common_bias.png") 
+
+```
+
 Texas and Florida show high counts across all offense types with little relative variation, indicating a more balanced distribution of hate-crime expressions.
 Some states with large populations (e.g., Michigan, Ohio) rank lower than expected, hinting at possible underreporting or weaker statutory incentives for local agencies to classify and submit incidents as hate crimes.
 
