@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-##"Which groups (racial, religious, gender, etc...) are most frequently targeted, and what events may have caused the increase or decrease of certain types of hate crime over the years?"
+##"Which groups (racial, religious, gender, state etc...) are most frequently targeted, and what may have caused the increase or decrease of certain types of hate crime over the years?"
 
 ## Abstract
 The purpose of this research and statistical analysis is to begin identifying significant trends in hate crime incidents across the United States, focusing on bias motivation, incident year, location and offense type. Using cleaned, standardized hate crime data, we analyze how these incidents have changed over time and which categories of hate crimes are most prevalent and where these cases appear the most frequently. Our data indicates that certain biases are more targeted (racial), and even within each bias (race/ethnicity, religion, sexual orientation, other) subgroups are also more targetted than others for instance Anti-Gay sentiment within the sexual orientation bias. Although the number of hate crimes fluctuates over time, there are several categories with clear trends that may reflect coexisting social and political dynamics going on at the same time.
@@ -110,29 +110,29 @@ knitr::include_graphics(
 ```{r} 
 knitr::include_graphics("Incident_over_time.png") 
 ```
-To deepen our understanding of hate crime patterns, we shifted focus to geography—where these incidents occur and how location shapes both the volume and nature of hate crimes. Examining location is critical because hate crimes are not randomly distributed across the United States; they concentrate in certain states and regions due to differences in population size, demographic diversity, urban density, law-enforcement reporting practices, and even local political climates. Identifying these geographic patterns helps policymakers and communities direct prevention resources where they are most needed and reveals whether certain types of bias-motivated offenses are more common in specific parts of the country.
+To deepen our understanding of hate crime patterns, we aimed to see how location shapes hate crimes. Examining location is critical because hate crimes are not randomly distributed across the US. They are may be more concentrated in some states because of differences in population size, demographic diversity, political environments etc. Identifying these geographic patterns helps policymakers and communities create prevention resources based on where they are most needed.
 
-The West and South consistently report the highest absolute numbers, largely because they contain the most populous states (California, Texas, Florida, etc.) and some of the nation’s most diverse metropolitan areas.
-The Northeast and Midwest have lower totals, partly because they include fewer states and, in the case of the Midwest, generally smaller and less diverse urban centers. Population size and diversity clearly drive a large share of the raw incident counts.
-Despite these baseline differences, all four regions follow remarkably similar long-term trends: a peak in the late 1990s to early 2000s, a prolonged decline or plateau from roughly 2008–2016, and a sharp, sustained increase beginning around 2017–2018 that continues through 2024. This synchronized movement strongly suggests that national-level events—political polarization, high-profile hate incidents amplified by social media, changes in federal leadership, and improved reporting mechanisms—exert a powerful influence across the entire country, even as absolute numbers differ by region.
+The West and South consistently report the highest case rates mostly because they have the most populous states (California, Texas, Florida, etc.). The Northeast and Midwest have lower totals, which could be due to having fewer states or smaller and less diverse areas. Despite these differences, all four regions have similar long-term trends: a peak in the late 1990s to early 2000s, a decline from 2008–2016, and an increase from around 2017–2018 to 2024. These patterns can help us determine how national level events such as political polarization, incidents that are popularized by social media, leadership changes, or, as mentioned before, simply improving the reporting mechanisms can have a powerful influence across the nation.
 
-The three bar graphs rank states by the number of incidents for the three most common offense types: simple assault, intimidation, and destruction/damage/vandalism of property. We deliberately kept the state order identical across all three plots so that cross-offense comparisons are immediate and intuitive.
-Clear state-level differences emerge:
+California, New York, New Jersey, Washington, and Massachusetts appear near the top in nearly every category which may reflect their large populations and maybe more established hate-crime reporting infrastructure. We also see that state by state there are differences even between the three categories. For instance, New Jersey has high intimidation numbers but much lower simple-assault counts. On the other hand, there are some states that show little relative variation across all offense types like Texas and Florida which indicate a more balanced distribution of hate-crime expressions.
 
-California, New York, New Jersey, Washington, and Massachusetts appear near the top in nearly every category, reflecting large, diverse populations and (importantly) relatively strong hate-crime reporting laws and infrastructure.
-New Jersey stands out with extremely high intimidation numbers but much lower simple-assault counts—suggesting that verbal threats, online harassment, or other non-physical confrontations may be more systematically reported or prosecuted there than physical assaults.
+## Chi-Squared Test
 
-Texas and Florida show high counts across all offense types with little relative variation, indicating a more balanced distribution of hate-crime expressions.
-Some states with large populations (e.g., Michigan, Ohio) rank lower than expected, hinting at possible under-reporting or weaker statutory incentives for local agencies to classify and submit incidents as hate crimes.
+	Pearson's Chi-squared test
 
-These state-by-state comparisons are policy-relevant: a state dominated by intimidation may benefit most from enhanced online monitoring and anti-harassment education, while a state with high assault rates may need stronger victim services and de-escalation training for law enforcement. Geography, therefore, is not just background—it actively shapes the type and severity of bias-motivated harm people experience.
----
+data:  table_pv
+X-squared = 8326.1, df = 24, p-value < 2.2e-16
 
-Finally, this summary visualization displays the single most frequently recorded bias motivation in each state (and the District of Columbia) over the entire 1991–2024 period. The map reveals a striking national pattern: anti-Black or African American bias is the most common motivation in the overwhelming majority of states, especially across the South, Midwest, and much of the Northeast. Anti-Jewish bias dominates in a smaller cluster of states (primarily New York, New Jersey, Florida, and Maryland), reflecting the geographic concentration of the U.S. Jewish population. A handful of Western states show anti-Hispanic or anti-Asian bias as the top category in certain years, but anti-Black bias remains the most persistent and widespread driver of hate crimes nationwide.
-The significance of this map is difficult to overstate: it provides visual proof that, regardless of region, population size, or political leaning, racism directed at Black Americans remains the most common form of reported hate crime in nearly every corner of the country. This finding underscores the enduring legacy of structural racism and suggests that any national strategy to reduce hate crimes must prioritize anti-Black violence and discrimination as its central focus. At the same time, the pockets of anti-Jewish dominance remind us that other forms of hatred can become locally predominant where particular communities are concentrated, reinforcing the need for both broad, nationwide efforts and targeted, community-specific interventions.
+This chi-square test examined whether the distribution of the four most common offense types (vandalism, intimidation, simple assault, and aggravated assault) differed across victim bias categories. From this we got that there is a statistically significant relationship between the victim's targeted group and the type of offense committed since p-value < 2.2e-16 which is far smaller than our significance level p = 0.05.
+
+This tells us that the patterns for offenses are not random when considering different biases. Certain types of hate-motivated offenses occur more frequently against particular more targeted groups. Some victim groups may experience more intimidation incidents, while others face higher levels of physical assaults. The results suggest that these differences are meaningful and can be used to make policy decisions to protect the more vulnerable communities.
 
 
----
+## Conclusion
+
+The purpose of this research was to find hate crime patterns, examine deeper the bias motivation, offense type, location, and how things change over time. After conducting our analysis, it revealed that certain biases, especially ethnic motivations, were the largest share of hate crimes, consequently telling us they were most targeting. Within broader main biases, specific sub bias groups were disproportionately targeted like such as Anti-Gay (male), Anti-Black and African American and Anti-Jewish. We also observed that incident counts fluctuating across the years which may be due to broad social or political events. Through data visualizations and our chi-squared test, we were able to compare trends across states and biases and highlight how hate crime patterns change across demographically and geographically.
+
+For continued research, we can see how social, economic, or political variables determine what triggers increases or decreases in hate crimes. We can also see what causes under reporting/increased reporting in different locations. All in all, this project shows the value of using statistics to uncover meaningful social justice trends to support policymakers and protect the community as a whole.
 
 ### Contributions Section
 
@@ -146,7 +146,8 @@ Faith Ang:
 Ria Mathew:
 - Edited: README.md, 01_funct_DataCleaning.R, 02_funct_Plots.R. (grammar, spelling, and smoother transitions)
 - Worked on 11_DataCleaning.Rmd (revised and improved) and 12_Plots.Rmd (question 2).
-- Worked on Abstract, introduction, Data, Data Cleaning and Visualization and Analysis portion of FinalReport.Rmd.
+- Worked on Abstract, Introduction, Data, Data Cleaning, Visualization and Analysis, Chi-Squared Test, Conclusion, portion of FinalReport.Rmd.
 
 Xuanwei Ding:
-- Worked substantially on 12_Plots.Rmd, coding for questions 3, 4, 5, and 6 on 12_Plots.Rmd. Worked on the analysis of the top 3 hate crimes.
+- Worked substantially on 12_Plots.Rmd, coding for questions 3, 4, 5, and 6 on 12_Plots.Rmd.
+- Worked on the analysis of the top 3 hate crimes.
