@@ -12,20 +12,21 @@ As mentioned in the data cleaning file, we will be exploring the following promp
 ```{r}
 #broad groups
 broad_groups <- hateCrime_Final %>%
-  mutate(category = case_when(
+  mutate(category = case_when( # when category, place them into broad group
+    # placing all races into race/ethicity
     Bias %in% c("Anti-Black or African American", "Anti-White", "Anti-Arab",
                 "Anti-Asian", "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
                 "Anti-Native Hawaiian or Other Pacific Islander",
                 "Anti-Multiple Races, Group", "Anti-Other Race/Ethnicity/Ancestry") ~ "Race/Ethnicity",
-    
+    # placing all religions into religion
     Bias %in% c("Anti-Jewish", "Anti-Islamic (Muslim)", "Anti-Catholic", "Anti-Buddhist",
                 "Anti-Protestant", "Anti-Other Religion", "Anti-Mormon", "Anti-Jehovah's Witness", 
                 "Anti-Sikh", "Anti-Atheist/Agnostic") ~ "Religion",
-    
+    # Placing all sexuality-based victims into sexual orientation
     Bias %in% c("Anti-Gay (Male)", "Anti-Lesbian (Female)", "Anti-Heterosexual", 
                 "Anti-Transgender", "Anti-Lesbian, Gay, Bisexual, or Transgender (Mixed Group)") ~ "Sexual Orientation",
     
-    TRUE ~ "Other"
+    TRUE ~ "Other" #this places other targets/victims that don't fall into the "other" category
   ))
 
 # sorting by category
@@ -48,6 +49,8 @@ ggplot(category_summary, aes(x = reorder(category, -total_incidents), y = total_
 
 
 ```{r}
+
+# filter observations of different races to a group called race_groups
 race_groups <- c("Anti-Black or African American", "Anti-White", "Anti-Arab", "Anti-Asian",
                  "Anti-Hispanic or Latino", "Anti-American Indian or Alaska Native",
                  "Anti-Native Hawaiian or Other Pacific Islander", "Anti-Multiple Races, Group",
