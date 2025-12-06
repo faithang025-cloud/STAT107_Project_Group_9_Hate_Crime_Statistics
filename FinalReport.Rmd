@@ -136,6 +136,11 @@ For continued research, we can see how social, economic, or political variables 
 
 ### Contributions Section
 
+THE GitHub link:
+
+{r} [Project](https://github.com/faithang025-cloud/STAT107_Project_Group_9_Hate_Crime_Statistics)
+
+
 Faith Ang:
 - Created the GitHub repository and the R and Rmd blank files for the project
 - Wrote a substantial amount of the README.md file
