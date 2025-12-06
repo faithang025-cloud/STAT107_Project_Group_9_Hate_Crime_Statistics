@@ -76,10 +76,12 @@ We see the most affected group is Gay (male) individuals, followed by a broad ca
 
 Each of our main bias categories has one sub-bias group that clearly stands out as the most targeted. For Race/Ethnicity it was Anti-Black or African American, for religion it was Anti-Jewish, for sexual orientation it was Gay (Male). Across all three plots, we see a concentrated pattern of hate crimes disproportionately affecting a single community within each category, highlighting substantial disparities between sub bias groups. While our earlier graph showed that Race/Ethnicity has a significantly higher overall number of incidents between our main bias groups, this more detailed breakdown reveals how hate crimes are similarly not evenly distributed within each main bias. The outlier subgroups that we see in each of our main biases we plotted displays an uneven distribution in levels of victimization.
 
+
+
 ```{r} 
 knitr::include_graphics("top5_offenses.png") 
 ```
-Looking further into Race/Ethnicity, since it has the most number of reported incidents by category, we broke down each group by the proportion of different hate-crime types. To make sure that our comparisons were not skewed by differences in total incident counts between groups, we normalized the data by scaling it so each bar reflects proportion instead of raw incident count. Among all hate-crime categories, the five reoccurring ones we identified were Intimidation, Destruction/Damage/Vandalism of Property, Simple Assault, Aggravated Assault, and Burglary/Breaking & Entering.
+Looking further into Race/Ethnicity, since it has the largest number of reported incidents by category, we broke down each group by the proportion of different hate-crime types. To make sure that our comparisons were not skewed by differences in total incident counts between groups, we normalized the data by scaling it so each bar reflects the proportion instead of raw incident count. Among all hate-crime categories, the five reoccurring ones we identified were Intimidation, Destruction/Damage/Vandalism of Property, Simple Assault, Aggravated Assault, and Burglary/Breaking & Entering.
 
 With each of the different races having similar offense type breakdowns (similar proportions of each offense type), the normalized graph typically assists in highlighting differences. However, from the little variations we see, we may be able to conclude that offense types may not be specific to race as the differences are miniscule and may just be chance and due to smaller sample sizes in some of the races.
 
@@ -90,11 +92,11 @@ knitr::include_graphics(
   c("religion_time.png", "bias_time.png")
 )
 ```
-These visuals track hate crime incidents over the years with the second displaying the three most targeted sub bias groups from our previously data visuals. Each point represents a year and their size is corresponds with the number of reported incidents.
+These visuals track hate crime incidents over the years, with the second displaying the three most targeted sub-bias groups from our previously data visuals. Each point represents a year and their size is corresponds with the number of reported incidents.
 
 The first line plot shows the overall trend with no bias specific statistics showing upswings 2018 onwards and similarly more incidents between 1996 and 2001. It also shows a significant dip between 2008 and 2017. With our second bubble plot we can compare and see if this trend is reflected among the subgroups that most dominate our data set: our 3 prominent sub biases from each main category (Anti—Black or African American, Anti-Jewish, Anti-Gay.
 
-Although it is a little difficult to tell since there are more incidents with our Race main Bias in comparison with our other bias categories, we can see that the bubble graph still reflects the same general trends. There there are larger bubbles across all three sub biases during the same years as those reflected in the line graph, and visa versa with the smaller bubbles. This is most visible with our Anti—Black or African American sub bias group, but that may just be more pronounced because there are more incidents while the other 2 sub bias groups sub are more subtle.
+Although it is a little difficult to tell since there are more incidents with our Race main Bias in comparison with our other bias categories, we can see that the bubble graph still reflects the same general trends. There there are larger bubbles across all three sub biases during the same years as those reflected in the line graph, and visa versa with the smaller bubbles. This is most visible with our Anti—Black or African American sub bias group, but that may just be more pronounced because there are more incidents while the other 2 sub bias groups are more subtle.
 
 Based on the time charts, we can infer that overall hate-crime incidents are influenced by social or historical forces that affect all groups, not just one. For instance, the upswing from 2018 onwards may be due to the tensions with the political climate or increased media presence, or it may be as simple as better methods for reporting incidents where it seems as though hate crime is increasing when in reality it is changes in accessibility.
 
@@ -108,20 +110,26 @@ knitr::include_graphics(
 ```{r} 
 knitr::include_graphics("Incident_over_time.png") 
 ```
-start by talking about both graphs and how you are trying to conclude things about location and why taht is significant
+To deepen our understanding of hate crime patterns, we shifted focus to geography—where these incidents occur and how location shapes both the volume and nature of hate crimes. Examining location is critical because hate crimes are not randomly distributed across the United States; they concentrate in certain states and regions due to differences in population size, demographic diversity, urban density, law-enforcement reporting practices, and even local political climates. Identifying these geographic patterns helps policymakers and communities direct prevention resources where they are most needed and reveals whether certain types of bias-motivated offenses are more common in specific parts of the country.
 
-line graph; talk about how you can visualize how the proportion of different crimes has evolved over the years for each geographical region. talk about how some are similar, why there might be less in one, are there less states, is the overall population of these lesser and is that why it reflects on the inceident numbers. talk about the trend going higher and lower in some areas and if that is different based on region. 
+The West and South consistently report the highest absolute numbers, largely because they contain the most populous states (California, Texas, Florida, etc.) and some of the nation’s most diverse metropolitan areas.
+The Northeast and Midwest have lower totals, partly because they include fewer states and, in the case of the Midwest, generally smaller and less diverse urban centers. Population size and diversity clearly drive a large share of the raw incident counts.
+Despite these baseline differences, all four regions follow remarkably similar long-term trends: a peak in the late 1990s to early 2000s, a prolonged decline or plateau from roughly 2008–2016, and a sharp, sustained increase beginning around 2017–2018 that continues through 2024. This synchronized movement strongly suggests that national-level events—political polarization, high-profile hate incidents amplified by social media, changes in federal leadership, and improved reporting mechanisms—exert a powerful influence across the entire country, even as absolute numbers differ by region.
 
-bar graphs; hate crime offenses by state - talk abt significance of looking into that. the y axis has the same order of states in each bar graph to draw comparisons easier. talk about that and how there are differences between states ex: lots of intimdation, very little assault in new jersey but in california pretty much high throughout, not much noticable fluctuation. what can you conclude from that. more. theres a lot you can conclude from this and talk abot significance of this.
+The three bar graphs rank states by the number of incidents for the three most common offense types: simple assault, intimidation, and destruction/damage/vandalism of property. We deliberately kept the state order identical across all three plots so that cross-offense comparisons are immediate and intuitive.
+Clear state-level differences emerge:
 
-```{r} 
-knitr::include_graphics("most_common_bias.png") 
-```
-Write here another short analysis on the significance of this graph. 
+California, New York, New Jersey, Washington, and Massachusetts appear near the top in nearly every category, reflecting large, diverse populations and (importantly) relatively strong hate-crime reporting laws and infrastructure.
+New Jersey stands out with extremely high intimidation numbers but much lower simple-assault counts—suggesting that verbal threats, online harassment, or other non-physical confrontations may be more systematically reported or prosecuted there than physical assaults.
+
+Texas and Florida show high counts across all offense types with little relative variation, indicating a more balanced distribution of hate-crime expressions.
+Some states with large populations (e.g., Michigan, Ohio) rank lower than expected, hinting at possible under-reporting or weaker statutory incentives for local agencies to classify and submit incidents as hate crimes.
+
+These state-by-state comparisons are policy-relevant: a state dominated by intimidation may benefit most from enhanced online monitoring and anti-harassment education, while a state with high assault rates may need stronger victim services and de-escalation training for law enforcement. Geography, therefore, is not just background—it actively shapes the type and severity of bias-motivated harm people experience.
 ---
 
-## Takeaway
-
+Finally, this summary visualization displays the single most frequently recorded bias motivation in each state (and the District of Columbia) over the entire 1991–2024 period. The map reveals a striking national pattern: anti-Black or African American bias is the most common motivation in the overwhelming majority of states, especially across the South, Midwest, and much of the Northeast. Anti-Jewish bias dominates in a smaller cluster of states (primarily New York, New Jersey, Florida, and Maryland), reflecting the geographic concentration of the U.S. Jewish population. A handful of Western states show anti-Hispanic or anti-Asian bias as the top category in certain years, but anti-Black bias remains the most persistent and widespread driver of hate crimes nationwide.
+The significance of this map is difficult to overstate: it provides visual proof that, regardless of region, population size, or political leaning, racism directed at Black Americans remains the most common form of reported hate crime in nearly every corner of the country. This finding underscores the enduring legacy of structural racism and suggests that any national strategy to reduce hate crimes must prioritize anti-Black violence and discrimination as its central focus. At the same time, the pockets of anti-Jewish dominance remind us that other forms of hatred can become locally predominant where particular communities are concentrated, reinforcing the need for both broad, nationwide efforts and targeted, community-specific interventions.
 
 
 ---
@@ -141,4 +149,4 @@ Ria Mathew:
 - Worked on Abstract, introduction, Data, Data Cleaning and Visualization and Analysis portion of FinalReport.Rmd.
 
 Xuanwei Ding:
-- Worked substantially on 12_Plots.Rmd, coding for questions 3, 4, 5, and 6 on 12_Plots.Rmd.
+- Worked substantially on 12_Plots.Rmd, coding for questions 3, 4, 5, and 6 on 12_Plots.Rmd. Worked on the analysis of the top 3 hate crimes.
